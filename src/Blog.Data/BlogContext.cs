@@ -1,4 +1,4 @@
-﻿using Blog.Core.Domain.Content;
+using Blog.Core.Domain.Content;
 using Blog.Core.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
