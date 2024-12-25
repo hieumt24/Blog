@@ -34,28 +34,4 @@ public class BlogContext : IdentityDbContext<AppUser, AppRole, Guid>
             .HasKey(x => new { x.UserId });
     }
 
-    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
-        CancellationToken cancellationToken = new CancellationToken())
-    {
-        var entries = ChangeTracker
-            .Entries()
-            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
-
-        foreach (var entityEntry in entries)
-        {
-            var dateCreatedProp = entityEntry.Entity.GetType().GetProperty("DateCreated");
-            if (entityEntry.State == EntityState.Added && dateCreatedProp != null)
-            {
-                dateCreatedProp.SetValue(entityEntry.Entity, DateTime.Now);
-            }
-
-            var modifiedDateProp = entityEntry.Entity.GetType().GetProperty("DateModified");
-            if (entityEntry.State == EntityState.Modified && modifiedDateProp != null)
-            {
-                modifiedDateProp.SetValue(entityEntry.Entity, DateTime.Now);
-            }
-        }
-
-        return base.SaveChangesAsync(cancellationToken);
-    }
 }
