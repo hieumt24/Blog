@@ -16,4 +16,9 @@
       <Folder Include="Controllers\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Blog.Core\Blog.Core.csproj" />
+      <ProjectReference Include="..\Blog.Data\Blog.Data.csproj" />
+    </ItemGroup>
+
 </Project>
