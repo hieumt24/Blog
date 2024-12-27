@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Blog.Core.Domain.Content;
 using Blog.Core.Models;
 using Blog.Core.Models.Content;
