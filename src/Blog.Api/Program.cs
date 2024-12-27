@@ -1,5 +1,7 @@
+using System.Reflection;
 using Blog.Api;
 using Blog.Core.Domain.Identity;
+using Blog.Core.Models.Content;
 using Blog.Core.Repositories;
 using Blog.Core.SeedWorks;
 using Blog.Data;
@@ -7,6 +9,7 @@ using Blog.Data.Repositories;
 using Blog.Data.SeedWorks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -57,10 +60,24 @@ foreach (var service in services)
         builder.Services.Add(new ServiceDescriptor(directInterfaces, service, ServiceLifetime.Scoped));
     }
 }
+
+builder.Services.AddAutoMapper(typeof(PostInListDto));
 // Default config to ASP.NET Core 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.CustomOperationIds(apiDesc =>
+    {
+        return apiDesc.TryGetMethodInfo(out MethodInfo methodInfo) ? methodInfo.Name : null;
+    });
+    options.SwaggerDoc("AdminAPI", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Version = "v1",
+        Title = "API for Administrators",
+        Description = "API for CMS core domain. This domain keeps track of campaign, campaign rule, and campaign execution.",
+    });
+});
 
 var app = builder.Build();
 
@@ -68,7 +85,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("AdminAPI/swagger.json", "Admin API");
+        options.DisplayOperationId();
+        options.DisplayRequestDuration();
+    });
 }
 
 app.UseHttpsRedirection();
