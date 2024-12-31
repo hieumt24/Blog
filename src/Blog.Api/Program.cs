@@ -77,6 +77,7 @@ builder.Services.AddSwaggerGen(options =>
         Title = "API for Administrators",
         Description = "API for CMS core domain. This domain keeps track of campaign, campaign rule, and campaign execution.",
     });
+    options.ParameterFilter<SwaggerNullableParameterFilter>();
 });
 
 var app = builder.Build();
