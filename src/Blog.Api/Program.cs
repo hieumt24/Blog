@@ -1,5 +1,7 @@
 using System.Reflection;
 using Blog.Api;
+using Blog.Api.Services;
+using Blog.Core.ConfigOptions;
 using Blog.Core.Domain.Identity;
 using Blog.Core.Models.Content;
 using Blog.Core.Repositories;
@@ -9,6 +11,7 @@ using Blog.Data.Repositories;
 using Blog.Data.SeedWorks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Common;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,8 +63,16 @@ foreach (var service in services)
         builder.Services.Add(new ServiceDescriptor(directInterfaces, service, ServiceLifetime.Scoped));
     }
 }
-
+//AutuMapper
 builder.Services.AddAutoMapper(typeof(PostInListDto));
+
+//Authentication and authorization
+builder.Services.Configure<JwtTokenSettings>(configuration.GetSection("JwtTokenSettings"));
+builder.Services.AddScoped<SignInManager<AppUser>, SignInManager<AppUser>>();
+builder.Services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
+
 // Default config to ASP.NET Core 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
