@@ -1,7 +1,11 @@
+# Blog CMS
+
+This is a Content Management System (CMS) blog for technical articles. The backend is built using ASP.NET Core WEB API and MVC, and the frontend is developed with Angular.
+
 ## Technology Stack
 
-- **Backend**: C#
-- **Frontend**: TypeScript, React, NextJS
+- **Backend**: ASP.NET Core WEB API, MVC, C#
+- **Frontend**: Angular, TypeScript, SCSS, HTML
 - **Database**: SQL Server
 
 ## Installation
@@ -16,38 +20,47 @@
 
 1. **Clone the repository**:
 
-   ```bash
-   git clone https://github.com/Room-Finder-G6/RoomFinder-Be.git
-   cd RoomFinder-Be
-
-   ```
+    ```bash
+    git clone https://github.com/hieumt24/Blog.git
+    cd Blog
+    ```
 
 2. **Backend Setup**:
 
-   ```bash
-   cd backend
-   cd src
-   dotnet restore
-   dotnet build
-   dotnet run
-
-   ```
+    ```bash
+    cd backend
+    dotnet restore
+    dotnet build
+    dotnet run
+    ```
 
 3. **Frontend Setup**:
 
-   ```bash
-   cd frontend
-   bun install or npm install
-   bun run dev or npm start
-
-   ```
+    ```bash
+    cd frontend
+    npm install
+    npm start
+    ```
 
 4. **Database Setup**:
+   
+   - Configure the connection string in `appsettings.Development.json`.
+   - Run the database migrations.
 
-- Configure the connection string in `appsettings.Development.json`.
-- Run the database migrations
+5. **Running the Application**:
 
-Usage
+   - Access the application at `http://localhost:4200`.
 
-- Access the application at http://localhost:3000.
+## Project Structure
+
+```plaintext
+Blog/
+├── backend/                   # Backend code
+│   ├── src/                   # Source files for the backend
+│   └── tests/                 # Backend tests
+├── frontend/                  # Frontend code
+│   ├── src/                   # Source files for the frontend
+│   └── tests/                 # Frontend tests
+├── database/                  # Database scripts and migrations
+└── README.md                  # Project documentation
 
