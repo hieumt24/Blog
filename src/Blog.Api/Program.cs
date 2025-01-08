@@ -18,6 +18,15 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var connectionString = configuration.GetConnectionString("DefaultConnection");
+var BlogCorsPolicy = "BlogCorsPolicy";
+
+builder.Services.AddCors(o => o.AddPolicy(BlogCorsPolicy, builder =>
+{
+    builder.AllowAnyMethod()
+        .AllowAnyHeader()
+        .WithOrigins(configuration["AllowedOrigins"])
+        .AllowCredentials();
+}));
 //Config DB Context and ASP>.NET Core Identity
 builder.Services.AddDbContext<BlogContext>(options =>
 {
@@ -106,6 +115,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseCors(BlogCorsPolicy);
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
