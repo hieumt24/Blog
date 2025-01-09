@@ -37,13 +37,7 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
-import {ADMIN_API_BASE_URL, AdminApiAuthApiClient} from "./api/admin-api.service.generated";
-import {environment} from "./../environments/environment";
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { AlertService } from './shared/services/alert.service';
-import { HttpClientModule } from '@angular/common/http';
-import { TokenStorageService } from './shared/services/token-storage.service';
+
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
@@ -89,11 +83,7 @@ const APP_CONTAINERS = [
       useClass: HashLocationStrategy
     },
     IconSetService,
-    Title,
-    MessageService,
-    AlertService,
-    AdminApiAuthApiClient,
-    TokenStorageService
+    Title
   ],
   bootstrap: [AppComponent]
 })
